@@ -8,8 +8,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { usePGlite } from "@electric-sql/pglite-react";
 
 export default function PatientForm() {
+  const db = usePGlite();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -30,7 +32,17 @@ export default function PatientForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const { firstName, lastName, email, phone, gender, birthDate, address } =
+        formData;
+      await db.query(
+        `INSERT INTO Registry (firstName, lastName, email, phoneNumber, gender, date, address) VALUES ($1, $2, $3, $4, $5, $6,$7);`,
+        [firstName, lastName, email, phone, gender, birthDate, address]
+      );
+      console.log("Form submitted Successfully..:", formData);
+    } catch (er) {
+      console.error("Database Error: ", er);
+    }
   };
 
   return (
