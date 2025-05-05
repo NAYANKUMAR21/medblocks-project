@@ -1,7 +1,7 @@
 import { DateConverter } from "@/lib/formater";
-import { DataResponse } from "@/lib/types";
+import { DataResponseType } from "@/lib/types";
 
-function PatientRecords({ data }: { data: DataResponse }) {
+function PatientRecords({ data }: { data: DataResponseType | undefined }) {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full table-auto border border-gray-300 text-sm">

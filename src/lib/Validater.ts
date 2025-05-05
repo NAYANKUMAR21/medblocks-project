@@ -5,7 +5,7 @@ export type ValidationResult =
   | { success: false; errors: Record<keyof PatientFormData, string> };
 
 const patientFormRegex: Record<keyof PatientFormData, RegExp> = {
-  firstName: /^[a-zA-Z]{2,50}$/,
+  firstName: /^[a-zA-Z\s]{2,50}$/,
   lastName: /^[a-zA-Z]{2,50}$/,
   email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
   phone: /^[6-9]\d{9}$/,

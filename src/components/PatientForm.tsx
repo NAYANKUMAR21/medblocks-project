@@ -20,12 +20,25 @@ const initialState = {
   birthDate: "",
   address: "",
 };
+const errorState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  gender: "",
+  birthDate: "",
+  address: "",
+  creds: "",
+};
+
 export default function PatientForm() {
-  const [error, setError] = useState(initialState);
+  const [error, setError] = useState(errorState);
   const db = usePGlite();
   const [formData, setFormData] = useState(initialState);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError(errorState);
+
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -51,8 +64,21 @@ export default function PatientForm() {
         [firstName, lastName, email, phone, gender, birthDate, address]
       );
       console.log("Form submitted Successfully..:", formData);
-    } catch (er) {
-      console.error("Database Error: ", er);
+      setFormData(initialState);
+    } catch (er: any) {
+      // console.error("Database Error: ", er);
+
+      if (er.message.includes("registry_email_key")) {
+        setError({
+          ...errorState,
+          email: "Email already exists. Please use a different email.",
+        });
+      } else {
+        setError({
+          ...errorState,
+          creds: "Something went wrong. Please try again later.",
+        });
+      }
     }
   };
 
@@ -112,7 +138,7 @@ export default function PatientForm() {
       </div>
 
       <div>
-        <Select onValueChange={handleSelect}>
+        <Select onValueChange={handleSelect} value={formData.gender}>
           <SelectTrigger>
             <SelectValue placeholder="Select gender" />
           </SelectTrigger>
@@ -155,6 +181,9 @@ export default function PatientForm() {
       <Button className="md:col-span-2" type="submit">
         Register Patient
       </Button>
+      {error?.creds && (
+        <p className="text-red-500 text-xs mt-1">{error.creds}</p>
+      )}
     </form>
   );
 }

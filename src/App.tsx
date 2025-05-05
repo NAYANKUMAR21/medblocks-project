@@ -52,29 +52,37 @@ export default function App() {
   console.log(data);
   return (
     <div className="min-h-screen bg-gray-100 p-4">
-      <div className="max-w-5xl mx-auto">
-        <Card>
-          <CardHeader>
-            <CardTitle>Patient Registration</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <PatientForm />
-          </CardContent>
+      <div className="max-w-7xl mx-auto">
+        <div className="flex flex-col lg:flex-row items-start gap-4">
+          {/* Patient Registration Card */}
+          <Card className="w-full lg:w-[48%]">
+            <CardHeader>
+              <CardTitle>Patient Registration</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <PatientForm />
+            </CardContent>
+          </Card>
 
-          <CardHeader className="mt-5">
-            <CardTitle>Patient Records</CardTitle>
-            <SortAndFilter
-              value={gender}
-              onChangeHandler={handleChange}
-              search={search}
-              onSelect={handleChangeGender}
-              Clear={handleClearSortAndFilter}
-            />
-          </CardHeader>
-          <CardContent>
-            <PatientRecords data={data} />
-          </CardContent>
-        </Card>
+          {/* Patient Records Card */}
+          <Card className="w-full lg:w-[52%]">
+            <CardHeader>
+              <CardTitle>Patient Records</CardTitle>
+              <SortAndFilter
+                value={gender}
+                onChangeHandler={handleChange}
+                search={search}
+                onSelect={handleChangeGender}
+                Clear={handleClearSortAndFilter}
+              />
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <PatientRecords data={data} />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );

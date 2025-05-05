@@ -22,22 +22,22 @@ const SortAndFilter = ({
   value: string;
 }) => {
   return (
-    <div className="flex w-full md:w-2/3 gap-4">
+    <div className="flex w-full md:w-2/3 gap-4 text-black">
       <Input
         type="text"
-        placeholder="Search by name or email..."
+        placeholder="Search by name..."
         value={search}
         onChange={onChangeHandler}
-        className="w-1/2 "
+        className="w-[100%]"
       />
       <Select onValueChange={onSelect} value={value}>
-        <SelectTrigger className="w-1/2 ">
-          <SelectValue placeholder="Select gender" />
+        <SelectTrigger className="w-1/2">
+          <SelectValue placeholder="Select gender.." />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="male">Male</SelectItem>
-          <SelectItem value="female">Female</SelectItem>
-          <SelectItem value="other">Other</SelectItem>
+          <SelectItem value="Male">Male</SelectItem>
+          <SelectItem value="Female">Female</SelectItem>
+          <SelectItem value="Other">Other</SelectItem>
         </SelectContent>
       </Select>
       <Button onClick={Clear}>Clear All</Button>
