@@ -3,14 +3,31 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 // https://vite.dev/config/
-export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  optimizeDeps: {
-    exclude: ["@electric-sql/pglite", "@electric-sql/pglite-react"],
-  },
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+export default defineConfig(({ mode }) => {
+  const isDevMode = mode == "development";
+  return {
+    plugins: [react(), tailwindcss()],
+    optimizeDeps: isDevMode
+      ? {
+          exclude: ["@electric-sql/pglite", "@electric-sql/pglite-react"],
+        }
+      : {
+          include: ["@electric-sql/pglite", "@electric-sql/pglite-react"],
+        },
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
     },
-  },
+    build: {
+      chunkSizeWarningLimit: 1000,
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            pglite: ["@electric-sql/pglite", "@electric-sql/pglite-react"],
+          },
+        },
+      },
+    },
+  };
 });

@@ -1,13 +1,7 @@
 import { DateConverter } from "@/lib/formater";
-import { useLiveIncrementalQuery } from "@electric-sql/pglite-react";
+import { DataResponse } from "@/lib/types";
 
-function PatientRecords() {
-  const data = useLiveIncrementalQuery(
-    `SELECT * FROM Registry ORDER BY id;`,
-    [],
-    "id"
-  );
-
+function PatientRecords({ data }: { data: DataResponse }) {
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full table-auto border border-gray-300 text-sm">

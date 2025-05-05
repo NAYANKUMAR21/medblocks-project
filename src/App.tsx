@@ -1,51 +1,80 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import PatientForm from "./components/PatientForm";
 import PatientRecords from "./components/PatientRecords";
 import SortAndFilter from "./components/Sort-and-filter";
+import { useLiveIncrementalQuery } from "@electric-sql/pglite-react";
+import { ChangeEvent, useEffect, useState } from "react";
 // import SortAndFilter from "./components/Sort-and-filter";
 
 // import PatientForm from "./components/PatientForm";
 // import PatientRecords from "./components/PatientRecords";
 
 export default function App() {
+  const [gender, setGender] = useState<string>("");
+  const [search, setSearch] = useState<string>("");
+
+  const [query, setQuery] = useState<string>(
+    "SELECT * FROM Registry ORDER BY id;"
+  );
+  const data = useLiveIncrementalQuery(query, [], "id");
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  const handleChangeGender = (value: string): void => {
+    setGender(value);
+  };
+  const handleClearSortAndFilter = () => {
+    setGender("");
+    setSearch("");
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      let conditions: string[] = [];
+
+      if (search.trim() !== "") {
+        conditions.push(`firstName LIKE '%${search}%'`);
+      }
+
+      if (gender !== "") {
+        conditions.push(`gender = '${gender}'`);
+      }
+
+      const whereClause =
+        conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+      setQuery(`SELECT * FROM Registry ${whereClause} ORDER BY id;`);
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [search, gender]);
+  console.log(data);
   return (
     <div className="min-h-screen bg-gray-100 p-4">
       <div className="max-w-5xl mx-auto">
-        <Tabs defaultValue="register">
-          <TabsList className="grid w-full grid-cols-2 mb-4">
-            <TabsTrigger value="register">Register Patient</TabsTrigger>
-            <TabsTrigger value="records">Patient Records</TabsTrigger>
-          </TabsList>
-          <TabsContent value="register">
-            <Card>
-              <CardHeader>
-                <CardTitle>Patient Registration</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <PatientForm />
-              </CardContent>
+        <Card>
+          <CardHeader>
+            <CardTitle>Patient Registration</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <PatientForm />
+          </CardContent>
 
-              <CardHeader>
-                <CardTitle>Patient Records</CardTitle>
-                <SortAndFilter />
-              </CardHeader>
-              <CardContent>
-                <PatientRecords />
-              </CardContent>
-            </Card>
-          </TabsContent>
-          <TabsContent value="records">
-            <Card>
-              <CardHeader>
-                <CardTitle>Patient Records</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <PatientRecords />
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+          <CardHeader className="mt-5">
+            <CardTitle>Patient Records</CardTitle>
+            <SortAndFilter
+              value={gender}
+              onChangeHandler={handleChange}
+              search={search}
+              onSelect={handleChangeGender}
+              Clear={handleClearSortAndFilter}
+            />
+          </CardHeader>
+          <CardContent>
+            <PatientRecords data={data} />
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
