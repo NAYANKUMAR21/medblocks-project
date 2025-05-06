@@ -26,6 +26,7 @@ export default defineConfig(({ mode }) => {
       chunkSizeWarningLimit: 1000,
       rollupOptions: {
         output: {
+          format: "es",
           manualChunks: {
             pglite: ["@electric-sql/pglite", "@electric-sql/pglite-react"],
           },

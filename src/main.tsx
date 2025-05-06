@@ -4,28 +4,16 @@ import App from "./App.tsx";
 import { PGliteWorker } from "@electric-sql/pglite/worker";
 import { live } from "@electric-sql/pglite/live";
 import { PGliteProvider } from "@electric-sql/pglite-react";
+import Loader from "./components/Loader.tsx";
+import MultiTabWorker from "./multi-tab-pglite-worker?worker";
 const root = createRoot(document.getElementById("root")!);
-
+root.render(<Loader />);
 (async function initialise() {
   try {
-    // checking if that is persisted
-    const isPersisted = await navigator.storage.persist();
-    console.log(`Storage persistence granted: ${isPersisted}`);
-
-    // if not convert it to yes
-    const isPersistent = await navigator.storage.persisted();
-    console.log(`Is persistent already? ${isPersistent}`);
-
     //creation of main worker
-    const SetUpWorker = new Worker(
-      new URL("./multi-tab-pglite-worker.ts", import.meta.url),
-      {
-        type: "module",
-      }
-    );
+    const SetUpWorker = new MultiTabWorker();
 
     // DB from the main node
-
     const db = await PGliteWorker.create(SetUpWorker, {
       extensions: { live },
       dataDir: "idb://medblocks-project.db",
