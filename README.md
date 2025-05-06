@@ -1,7 +1,6 @@
-
 # Patient Registry App
 
-##  Project Overview
+## Project Overview
 
 This application allows users to register patients using a form and view the records in a list format. Users can also sort and filter the patient list based on name and gender. It supports **live updates** across multiple browser tabs using the reactive nature of **PGlite** and updates the data in real time by identifying changes in the database.
 
@@ -9,7 +8,7 @@ This application allows users to register patients using a form and view the rec
 
 - **Frontend**: React, Shadcn, TailwindCSS
 - **Database**: PGlite (indexedDB) (PostgreSQL running in the browser via WebAssembly)
-  
+
 PGlite enables PostgreSQL to run entirely in the browser using a `.wasm` binary format, which makes it ideal for offline and reactive applications.
 
 ---
@@ -23,7 +22,6 @@ PGlite enables PostgreSQL to run entirely in the browser using a `.wasm` binary 
 - Form validation
 - Debounced input handling (to reduce load)
 - Responsive for all Screens
-  
 
 ---
 
@@ -65,6 +63,7 @@ This was my first time using PGlite, and I learned a lot while building this pro
 This ensured smoother development without build-time issues.
 
 ## Folder Structure
+
 ```
 src/
 ├── assets/
@@ -88,24 +87,31 @@ src/
 ```
 
 ---
-## Future Improvements
-1. Implementing grid filtering 
-2. Add Pagination or Infinite Scrolling
----
-## Demo
-#### Data-Entry form
-![[Pasted image 20250506152753.png]]
 
+## Future Improvements
+
+1. Implementing grid filtering
+2. Add Pagination or Infinite Scrolling
+
+---
+
+## Demo
+
+#### Data-Entry form
+
+![Data Entry Form](./src/assets/DataEntry.png)
 
 #### Multi-tab support for real-time data syncing
-![[Screenshot 2025-05-06 at 3.31.12 PM.png]]
+
+![Multi-Tab-Data-Sync](./src/assets/Multi-tab-data-sync.png)
 
 ---
+
 ## Setup Instructions
 
 ### Prerequisites
 
-* Node.js >= 18
+- Node.js >= 18
 
 (No backend or external database setup required since PGlite runs entirely in the browser.)
 
@@ -119,13 +125,10 @@ git clone https://github.com/NAYANKUMAR21/medblocks-project.git
 cd medblocks-project
 
 # Install dependencies
-npm install 
+npm install
 
 # Start the development server
 npm run dev
 ```
 
-
-
 ### Thank you ...
-
