@@ -28,7 +28,6 @@ const errorState = {
   gender: "",
   birthDate: "",
   address: "",
-  creds: "",
 };
 
 export default function PatientForm() {
@@ -76,12 +75,13 @@ export default function PatientForm() {
       } else {
         setError({
           ...errorState,
-          creds: "Something went wrong. Please try again later.",
+          email: "Something went wrong. Please try again later.",
         });
       }
     }
   };
 
+  console.log(1);
   return (
     <form
       onSubmit={handleSubmit}
@@ -181,9 +181,6 @@ export default function PatientForm() {
       <Button className="md:col-span-2" type="submit">
         Register Patient
       </Button>
-      {error?.creds && (
-        <p className="text-red-500 text-xs mt-1">{error.creds}</p>
-      )}
     </form>
   );
 }
