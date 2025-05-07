@@ -62,6 +62,15 @@ This was my first time using PGlite, and I learned a lot while building this pro
 
 This ensured smoother development without build-time issues.
 
+## Known Limitations and Key learnings from PGlite Github
+
+When using this application on mobile browsers, please be aware of the following limitations:
+
+- **Memory Requirements**: PGLite requires substantial memory allocation (tests show 347MB+ usage even with minimal data)
+- **iOS Safari Constraints**: iOS Safari imposes strict memory limits that cause the application to crash when using PGLite
+- **Official Documentation**: The PGLite documentation acknowledges these mobile browser limitations
+- **Ongoing Development**: This issue is being actively discussed by PGLite developers (reference: [GitHub issue #408](https://github.com/electric-sql/electric/issues/408))
+
 ## Folder Structure
 
 ```

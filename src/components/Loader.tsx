@@ -5,8 +5,8 @@ const Loader = () => (
     </div>
     <div className="text-sm text-gray-600 text-center max-w-md px-4">
       We’re setting things up in your browser. This may take a few seconds. If
-      it takes too long, please check your browser storage settings or refresh
-      the page.
+      it takes too long, please open in Desktop browser or check your browser
+      storage settings.
     </div>
   </div>
 );
