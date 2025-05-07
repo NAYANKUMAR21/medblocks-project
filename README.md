@@ -69,7 +69,7 @@ When using this application on mobile browsers, please be aware of the following
 - **Memory Requirements**: PGLite requires substantial memory allocation (tests show 347MB+ usage even with minimal data)
 - **iOS Safari Constraints**: iOS Safari imposes strict memory limits that cause the application to crash when using PGLite
 - **Official Documentation**: The PGLite documentation acknowledges these mobile browser limitations
-- **Ongoing Development**: This issue is being actively discussed by PGLite developers (reference: [GitHub issue #408](https://github.com/electric-sql/electric/issues/408))
+- **Ongoing Development**: This issue is being actively discussed by PGLite developers (reference: [GitHub issue #408](https://github.com/electric-sql/pglite/issues/408))
 
 ## Folder Structure
 
